@@ -26,7 +26,7 @@ require_file_exists() {
 ###
 
 CONFIG_DIR="$HOME/.nvim-anywhere"
-CONFIG_FILE="$CONFIG_DIR/config"
+CONFIG_FILE="$CONFIG_DIR/CONFIG"
 
 # Default settings
 AUTO_PASTE=false
