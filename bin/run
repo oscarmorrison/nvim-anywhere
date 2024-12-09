@@ -22,6 +22,22 @@ require_file_exists() {
 }
 
 ###
+# config
+###
+
+CONFIG_DIR="$HOME/.config/nvim-anywhere"
+CONFIG_FILE="$CONFIG_DIR/config"
+
+# Default settings
+AUTO_PASTE=false
+NVIM_BIN="nvim"  # Default to nvim in PATH
+
+# Load config if it exists
+if [ -f "$CONFIG_FILE" ]; then
+    source "$CONFIG_FILE"
+fi
+
+###
 # opts
 ###
 
@@ -39,7 +55,7 @@ done
 AW_PATH=$HOME/.nvim-anywhere
 TMPFILE_DIR=/tmp/nvim-anywhere
 TMPFILE=$TMPFILE_DIR/doc-$(date +"%y%m%d%H%M%S")
-NVIM_OPTS=--nofork
+NVIM_OPTS=""
 
 # Use ~/.nvimrc.min if it exists
 VIMRC_PATH=$HOME/.nvimrc.min
@@ -64,14 +80,25 @@ elif [[ $OSTYPE == "darwin"* ]]; then
     "Please reinstall nvim-anywhere."
 
   app=$(osascript $AW_PATH/script/current_app.scpt)
-  nvim_path=$(cat $AW_PATH/.path)
+  
+  # Use config NVIM_BIN if set, otherwise fall back to path file
+  if [ "$NVIM_BIN" = "nvim" ]; then
+    nvim_path=$(cat $AW_PATH/.path)
+  else
+    nvim_path=$NVIM_BIN
+  fi
 
   require_file_exists $nvim_path \
-    "nvim must have been moved or uninstalled.\nPlease make sure it is" \
+    "nvim must have moved or uninstalled.\nPlease make sure it is" \
     "available in your path and then reinstall nvim-anywhere."
 
   $nvim_path $NVIM_OPTS $TMPFILE
 
   LANG=en_US.UTF-8 pbcopy < $TMPFILE
   osascript -e "activate application \"$app\""
+  
+  if [ "$AUTO_PASTE" = true ]; then
+    sleep 0.1  # Small delay to ensure application is focused
+    osascript -e 'tell application "System Events" to keystroke "v" using command down'
+  fi
 fi

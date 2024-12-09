@@ -97,3 +97,25 @@ pull request.**
 ## License
 
 MIT.
+
+## Configuration
+
+You can configure nvim-anywhere by editing `~/.config/nvim-anywhere/config`:
+
+```bash
+# Enable automatic pasting after closing nvim
+AUTO_PASTE=false
+
+# Set the nvim binary to use
+NVIM_BIN="nvim"
+```
+
+Example configurations:
+```bash
+# Auto-paste and use Homebrew nvim
+AUTO_PASTE=true
+NVIM_BIN="/opt/homebrew/bin/nvim"
+
+# Use specific nvim version
+NVIM_BIN="/usr/local/bin/nvim"
+```

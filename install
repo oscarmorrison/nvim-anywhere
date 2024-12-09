@@ -89,6 +89,21 @@ fi
 # installation
 ###
 
+# Create config directory and default config file
+mkdir -p "$HOME/.config/nvim-anywhere"
+cat > "$HOME/.config/nvim-anywhere/config" <<EOL
+# nvim-anywhere configuration
+
+# Enable automatic pasting after closing nvim
+AUTO_PASTE=false
+
+# Set the nvim binary to use (default: nvim)
+# Examples:
+# NVIM_BIN=/usr/local/bin/nvim
+# NVIM_BIN=/opt/homebrew/bin/nvim
+NVIM_BIN="nvim"
+EOL
+
 echo "Installing nvim-anywhere..."
 
 git clone $AW_URL $AW_PATH
