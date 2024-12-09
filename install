@@ -131,7 +131,7 @@ elif [[ $OSTYPE == "darwin"* ]]; then
 
   # install the workflow as a service
   mkdir -p $HOME/Library/Services
-  cp -R $AW_PATH/VimAnywhere.workflow $HOME/Library/Services
+  cp -R $AW_PATH/NvimAnywhere.workflow $HOME/Library/Services
 
   # Set default keybindings
   defaults write pbs NSServicesStatus '{
