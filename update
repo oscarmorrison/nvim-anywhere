@@ -1,10 +1,14 @@
+
+3. Update `update`:
+```bash
 #!/bin/bash
 #
-# vim-anywhere - use Vim whenever, wherever
-# Author: Chris Knadler
-# Homepage: https://www.github.com/cknadler/vim-anywhere
+# nvim-anywhere - use Neovim whenever, wherever
+# Original Author: Chris Knadler
+# Fork Author: Oscar Morrison
+# Homepage: https://github.com/oscarmorrison/nvim-anywhere
 #
-# Updates vim-anywhere
+# Updates nvim-anywhere
 
 set -e
 
@@ -25,14 +29,14 @@ done
 
 err() { echo -e "$@" 1>&2; }
 
-AW_PATH=$HOME/.vim-anywhere
+AW_PATH=$HOME/.nvim-anywhere
 
 ###
 # update
 ###
 
 if [ ! -d $AW_PATH ]; then
-  err "vim-anywhere doesn't seem to be installed."
+  err "nvim-anywhere doesn't seem to be installed."
   exit 1
 fi
 
@@ -48,7 +52,8 @@ popd
 
 # OSX only
 if [[ $OSTYPE == "darwin"* ]]; then
-  cp -R $AW_PATH/VimAnywhere.workflow $HOME/Library/Services
+  cp -R $AW_PATH/NvimAnywhere.workflow $HOME/Library/Services
 fi
 
-echo "vim-anywhere has been successfully updated!"
+echo "nvim-anywhere has been successfully updated!"
+```

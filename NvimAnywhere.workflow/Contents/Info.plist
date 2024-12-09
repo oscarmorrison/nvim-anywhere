@@ -2,9 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <!--
-  vim-anywhere - use Vim whenever, wherever
-  Author: Chris Knadler
-  Homepage: https://www.github.com/cknadler/vim-anywhere
+  nvim-anywhere - use Neovim whenever, wherever
+  Original Author: Chris Knadler
+  Fork Author: Oscar Morrison
+  Homepage: https://github.com/oscarmorrison/nvim-anywhere
 -->
 <dict>
   <key>NSServices</key>
@@ -13,7 +14,7 @@
       <key>NSMenuItem</key>
       <dict>
         <key>default</key>
-        <string>VimAnywhere</string>
+        <string>NvimAnywhere</string>
       </dict>
       <key>NSMessage</key>
       <string>runWorkflowAsService</string>

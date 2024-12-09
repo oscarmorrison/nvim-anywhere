@@ -1,12 +1,13 @@
 #!/bin/bash
 #
-# vim-anywhere - use Vim whenever, wherever
-# Author: Chris Knadler
-# Homepage: https://www.github.com/cknadler/vim-anywhere
+# nvim-anywhere - use Neovim whenever, wherever
+# Original Author: Chris Knadler
+# Fork Author: Oscar Morrison
+# Homepage: https://github.com/oscarmorrison/nvim-anywhere
 #
-# Installs vim-anywhere. Intended for use via curl:
+# Installs nvim-anywhere. Intended for use via curl:
 #
-#   $ curl -fsSL https://raw.github.com/cknadler/vim-anywhere/master/install | bash
+#   $ curl -fsSL https://raw.github.com/oscarmorrison/nvim-anywhere/master/install | bash
 
 set -e
 
@@ -31,7 +32,7 @@ check_installed() { hash $1 &> /dev/null; }
 
 require_installed() {
   if ! check_installed $1; then
-    err "vim-anywhere requires $1 to function"
+    err "nvim-anywhere requires $1 to function"
     if [[ "$2" != "" ]]; then echo $2; fi
     exit 1
   fi
@@ -41,24 +42,24 @@ require_one_installed() {
   for file in $*; do
     check_installed $file && return
   done
-  err "vim-anywhere requires one of the following to be installed:\n$*"
+  err "nvim-anywhere requires one of the following to be installed:\n$*"
   exit 1
 }
 
 AW_PATH=$HOME/.vim-anywhere
-AW_URL='https://github.com/cknadler/vim-anywhere'
+AW_URL='https://github.com/oscarmorrison/nvim-anywhere'
 
 ###
 # pre-installation checks
 ###
 
-# Check if vim-anywhere is already installed. If so, remove the previous
+# Check if nvim-anywhere is already installed. If so, remove the previous
 # installation.
 if [ -a $AW_PATH ]; then
   echo 'Cleaning up previous installation...'
   rm -rf $AW_PATH
   # TODO: It would be nice to have an option for user input here
-  # Reinstall vim-anywhere (y/n)? ... or something like that
+  # Reinstall nvim-anywhere (y/n)? ... or something like that
 fi
 
 require_installed git
@@ -71,12 +72,12 @@ fi
 # Linux specific checks
 if [[ $OSTYPE == "linux-gnu" ]]; then
   require_one_installed gconftool gsettings
-  require_installed gvim
+  require_one_installed nvim gvim
   require_installed xclip
 
 # OSX specific checks
 elif [[ $OSTYPE == "darwin"* ]]; then
-  require_installed mvim 'Run `brew install macvim`.'
+  require_one_installed nvim mvim 'Run `brew install neovim`'
 
 # Unsupported OS
 else
@@ -88,20 +89,20 @@ fi
 # installation
 ###
 
-echo "Installing vim-anywhere..."
+echo "Installing nvim-anywhere..."
 
 git clone $AW_URL $AW_PATH
 
 # Linux install
 if [[ $OSTYPE == "linux-gnu" ]]; then
-  name="vim-anywhere"
+  name="nvim-anywhere"
   binding="<CTRL><ALT>v"
   action=$AW_PATH/bin/run
 
   # We always try gconftool first. It is deprecated so it won't be on newer
   # installs. If it's installed, we know we are on older versions of Gnome.
   if check_installed gconftool; then
-    kbd_path=/desktop/gnome/keybindings/vim-anywhere
+    kbd_path=/desktop/gnome/keybindings/nvim-anywhere
     gconftool -t str --set $kbd_path/name $name
     gconftool -t str --set $kbd_path/binding $binding
     gconftool -t str --set $kbd_path/action $action
@@ -111,7 +112,7 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
   else
     media_keys=org.gnome.settings-daemon.plugins.media-keys
     custom_kbd=org.gnome.settings-daemon.plugins.media-keys.custom-keybinding
-    kbd_path=/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/vim-anywhere/
+    kbd_path=/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nvim-anywhere/
     new_bindings=`gsettings get $media_keys custom-keybindings | sed -e"s>'\]>','$kbd_path']>"| sed -e"s>@as \[\]>['$kbd_path']>"`
     gsettings set $media_keys custom-keybindings "$new_bindings"
     gsettings set $custom_kbd:$kbd_path name $name
@@ -121,8 +122,12 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
 
 # OSX install
 elif [[ $OSTYPE == "darwin"* ]]; then
-  # store the absolute path to the mvim executable
-  which mvim > $AW_PATH/.path
+  # store the absolute path to nvim or mvim executable
+  if check_installed nvim; then
+    which nvim > $AW_PATH/.path
+  else
+    which mvim > $AW_PATH/.path
+  fi
 
   # install the workflow as a service
   mkdir -p $HOME/Library/Services
@@ -130,7 +135,7 @@ elif [[ $OSTYPE == "darwin"* ]]; then
 
   # Set default keybindings
   defaults write pbs NSServicesStatus '{
-    "(null) - VimAnywhere - runWorkflowAsService" = {
+    "(null) - nvim-anywhere - runWorkflowAsService" = {
       "key_equivalent" = "@^v";
     };
     "org.vim.MacVim - MacVim/New MacVim Buffer With Selection - openSelection" = {
@@ -142,4 +147,4 @@ elif [[ $OSTYPE == "darwin"* ]]; then
   osascript -e "activate application \"Finder\""
 fi
 
-echo "vim-anywhere has been successfully installed!"
+echo "nvim-anywhere has been successfully installed!"

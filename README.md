@@ -1,26 +1,19 @@
-# vim-anywhere
+# neovim-anywhere
 
-Sometimes, you edit text outside of Vim. These are sad times. Enter
-vim-anywhere!
+A fork of [vim-anywhere](https://github.com/cknadler/vim-anywhere) modified to use Neovim instead of Vim.
 
-![demo](assets/demo.gif)
-
-Once [invoked](#keybinding), vim-anywhere will open a buffer. Close it and its
-contents are copied to your __clipboard__ and your previous application is
-refocused.
+Sometimes, you edit text outside of Neovim. These are sad times. Enter neovim-anywhere!
 
 ## Installation
 
 #### Requirements
 
-__OSX:__
+**OSX:**
+* Neovim (`brew install neovim`)
 
-- MacVim (`brew install --cask macvim`)
-
-__Linux:__
-
-- Gnome (or a derivative)
-- gVim
+**Linux:**
+* Gnome (or a derivative)
+* Neovim
 
 #### Install
 

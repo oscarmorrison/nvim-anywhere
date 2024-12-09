@@ -1,10 +1,11 @@
 #!/bin/bash
 #
-# vim-anywhere - use Vim whenever, wherever
-# Author: Chris Knadler
-# Homepage: https://www.github.com/cknadler/vim-anywhere
+# nvim-anywhere - use Neovim whenever, wherever
+# Original Author: Chris Knadler
+# Fork Author: Oscar Morrison
+# Homepage: https://github.com/oscarmorrison/nvim-anywhere
 #
-# Open a temporary file with Vim. Once Vim is closed, copy the contents of that
+# Open a temporary file with Neovim. Once Neovim is closed, copy the contents of that
 # file to the system clipboard.
 
 ###
@@ -35,20 +36,17 @@ done
 # run
 ###
 
-AW_PATH=$HOME/.vim-anywhere
-TMPFILE_DIR=/tmp/vim-anywhere
+AW_PATH=$HOME/.nvim-anywhere
+TMPFILE_DIR=/tmp/nvim-anywhere
 TMPFILE=$TMPFILE_DIR/doc-$(date +"%y%m%d%H%M%S")
-VIM_OPTS=--nofork
+NVIM_OPTS=--nofork
 
-# Use ~/.gvimrc.min or ~/.vimrc.min if one exists
-VIMRC_PATH=($HOME/.gvimrc.min $HOME/.vimrc.min)
+# Use ~/.nvimrc.min if it exists
+VIMRC_PATH=$HOME/.nvimrc.min
 
-for vimrc_path in "${VIMRC_PATH[@]}"; do
-    if [ -f $vimrc_path ]; then
-        VIM_OPTS+=" -u $vimrc_path"
-        break
-    fi
-done
+if [ -f $VIMRC_PATH ]; then
+    NVIM_OPTS+=" -u $VIMRC_PATH"
+fi
 
 mkdir -p $TMPFILE_DIR
 touch $TMPFILE
@@ -56,29 +54,24 @@ touch $TMPFILE
 # Linux
 if [[ $OSTYPE == "linux-gnu" ]]; then
   chmod o-r $TMPFILE # Make file only readable by you
-  gvim $VIM_OPTS $TMPFILE
+  nvim $NVIM_OPTS $TMPFILE
   cat $TMPFILE | xclip -selection clipboard
 
 # OSX
 elif [[ $OSTYPE == "darwin"* ]]; then
   # if there is no path file, it must have been deleted or the installer failed
   require_file_exists $AW_PATH/.path \
-    "Please reinstall vim-anywhere."
+    "Please reinstall nvim-anywhere."
 
   app=$(osascript $AW_PATH/script/current_app.scpt)
-  mvim_path=$(cat $AW_PATH/.path)
+  nvim_path=$(cat $AW_PATH/.path)
 
-  require_file_exists $mvim_path \
-    "mvim must have been moved or uninstalled.\nPlease make sure it is" \
-    "available in your path and then reinstall vim-anywhere."
+  require_file_exists $nvim_path \
+    "nvim must have been moved or uninstalled.\nPlease make sure it is" \
+    "available in your path and then reinstall nvim-anywhere."
 
-  $mvim_path $VIM_OPTS $TMPFILE
-  # todo, fix invalid file
+  $nvim_path $NVIM_OPTS $TMPFILE
 
-  # NOTE
-  # Here we set LANG explicitly to be UTF-8 compatible when copying text. The only way that was explicitly
-  # setting this to en_US.UTF-8. This may eventually cause issues with other languages. If so, just remove
-  # the LANG setting.
   LANG=en_US.UTF-8 pbcopy < $TMPFILE
   osascript -e "activate application \"$app\""
 fi

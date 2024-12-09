@@ -1,10 +1,11 @@
 #!/bin/bash
 #
-# vim-anywhere - use Vim whenever, wherever
-# Author: Chris Knadler
-# Homepage: https://www.github.com/cknadler/vim-anywhere
+# nvim-anywhere - use Neovim whenever, wherever
+# Original Author: Chris Knadler
+# Fork Author: Oscar Morrison
+# Homepage: https://github.com/oscarmorrison/nvim-anywhere
 #
-# Uninstalls vim-anywhere
+# Uninstalls nvim-anywhere
 
 set -e
 
@@ -25,8 +26,8 @@ done
 
 check_installed() { hash $1 &> /dev/null; }
 
-AW_PATH=$HOME/.vim-anywhere
-DOC_PATH=/tmp/vim-anywhere
+AW_PATH=$HOME/.nvim-anywhere
+DOC_PATH=/tmp/nvim-anywhere
 
 ###
 # uninstall
@@ -37,20 +38,20 @@ rm -rf $AW_PATH $DOC_PATH
 # Linux uninstall
 if [[ $OSTYPE == "linux-gnu" ]]; then
   if check_installed gconftool; then
-    kbd_path=/desktop/gnome/keybindings/vim-anywhere
+    kbd_path=/desktop/gnome/keybindings/nvim-anywhere
     gconftool --unset $kbd_path/name
     gconftool --unset $kbd_path/binding
     gconftool --unset $kbd_path/action
 
   else # gsettings must be installed
     custom_kbd=org.gnome.settings-daemon.plugins.media-keys.custom-keybinding
-    kbd_path=/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/vim-anywhere/
+    kbd_path=/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/nvim-anywhere/
     gsettings reset-recursively $custom_kbd:$kbd_path
   fi
 
 # OSX uninstall
 elif [[ $OSTYPE == "darwin"* ]]; then
-  rm -rf $HOME/Library/Services/VimAnywhere.workflow
+  rm -rf $HOME/Library/Services/NvimAnywhere.workflow
 fi
 
-echo "vim-anywhere has been successfully uninstalled!"
+echo "nvim-anywhere has been successfully uninstalled!"
