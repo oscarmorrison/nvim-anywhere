@@ -18,7 +18,7 @@ Sometimes, you edit text outside of Neovim. These are sad times. Enter neovim-an
 #### Install
 
 ```bash
-curl -fsSL https://raw.github.com/cknadler/vim-anywhere/master/install | bash
+curl -fsSL https://raw.github.com/oscarmorrison/nvim-anywhere/master/install | bash
 ```
 
 #### Update
