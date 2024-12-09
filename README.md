@@ -100,7 +100,7 @@ MIT.
 
 ## Configuration
 
-You can configure nvim-anywhere by editing `~/.config/nvim-anywhere/config`:
+You can configure nvim-anywhere by editing `~/.nvim-anywhere/config`:
 
 ```bash
 # Enable automatic pasting after closing nvim

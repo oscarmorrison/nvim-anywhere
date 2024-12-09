@@ -54,4 +54,6 @@ elif [[ $OSTYPE == "darwin"* ]]; then
   rm -rf $HOME/Library/Services/NvimAnywhere.workflow
 fi
 
+rm -rf "$HOME/.config/nvim-anywhere"
+
 echo "nvim-anywhere has been successfully uninstalled!"
