@@ -24,13 +24,13 @@ curl -fsSL https://raw.github.com/oscarmorrison/nvim-anywhere/master/install | b
 #### Update
 
 ```bash
-~/.vim-anywhere/update
+~/.nvim-anywhere/update
 ```
 
 #### Uninstall
 
 ```bash
-~/.vim-anywhere/uninstall
+~/.nvim-anywhere/uninstall
 ```
 
 ## Keybinding
@@ -40,39 +40,39 @@ __OSX:__ ( default = `ctrl+cmd+v` )
 You can adjust the shortcut via [system preferences](assets/shortcut.png).
 
 ```
-System Preferences > Keyboard > Shortcuts > Services > Vim Anywhere
+System Preferences > Keyboard > Shortcuts > Services > Nvim Anywhere
 ```
 
 __Linux:__ ( default = `ctrl+alt+v` )
 
 *Gnome*
 ```bash
-$ gconftool -t str --set /desktop/gnome/keybindings/vim-anywhere/binding <custom binding>
+$ gconftool -t str --set /desktop/gnome/keybindings/nvim-anywhere/binding <custom binding>
 ```
 
 *I3WM*
 
 ```bash
-$ echo 'bindsym $mod+Alt+v exec ~/.vim-anywhere/bin/run' >> ~/.i3/config # remember to reload your config after
+$ echo 'bindsym $mod+Alt+v exec ~/.nvim-anywhere/bin/run' >> ~/.i3/config # remember to reload your config after
 ```
 Adjust in case `$mod` is not set to ctrl.
 
 ## History
 
-vim-anywhere creates a temporary file in `/tmp/vim-anywhere` when invoked. These
+nvim-anywhere creates a temporary file in `/tmp/nvim-anywhere` when invoked. These
 files stick around until you restart your system, giving you a temporary
 history.
 
 View your history:
 
 ```bash
-$ ls /tmp/vim-anywhere
+$ ls /tmp/nvim-anywhere
 ```
 
 Reopen your most recent file:
 
 ```bash
-$ vim $( ls /tmp/vim-anywhere | sort -r | head -n 1 )
+$ nvim $( ls /tmp/nvim-anywhere | sort -r | head -n 1 )
 ```
 
 ## Why?

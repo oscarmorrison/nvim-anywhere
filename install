@@ -46,7 +46,7 @@ require_one_installed() {
   exit 1
 }
 
-AW_PATH=$HOME/.vim-anywhere
+AW_PATH=$HOME/.nvim-anywhere
 AW_URL='https://github.com/oscarmorrison/nvim-anywhere'
 
 ###

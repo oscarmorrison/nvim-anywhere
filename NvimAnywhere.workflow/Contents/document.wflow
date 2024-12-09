@@ -2,9 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <!--
-  vim-anywhere - use Vim whenever, wherever
-  Author: Chris Knadler
-  Homepage: https://www.github.com/cknadler/vim-anywhere
+  nvim-anywhere - use Nvim whenever, wherever
+  Original Author: Chris Knadler
+  Fork Author: Oscar Morrison
+  Homepage: https://github.com/oscarmorrison/nvim-anywhere
 -->
 <dict>
   <key>AMApplicationBuild</key>
@@ -64,7 +65,7 @@
         <key>ActionParameters</key>
         <dict>
           <key>COMMAND_STRING</key>
-          <string>$HOME/.vim-anywhere/bin/run</string>
+          <string>$HOME/.nvim-anywhere/bin/run</string>
           <key>CheckedForUserDefaultShell</key>
           <true/>
           <key>inputMethod</key>

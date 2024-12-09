@@ -1,6 +1,7 @@
--- vim-anywhere - use Vim whenever, wherever
--- Author: Chris Knadler
--- Homepage: https://www.github.com/cknadler/vim-anywhere
+-- nvim-anywhere - use Nvim whenever, wherever
+-- Original Author: Chris Knadler
+-- Fork Author: Oscar Morrison
+-- Homepage: https://github.com/oscarmorrison/nvim-anywhere
 --
 -- Get the current application's name
 
